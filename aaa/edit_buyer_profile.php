@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Shopper</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
+		<!-- bootstrap -->
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">      
+		<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">		
+		<link href="themes/css/bootstrappage.css" rel="stylesheet"/>
+		
+		<!-- global styles -->
+		<link href="themes/css/flexslider.css" rel="stylesheet"/>
+		<link href="themes/css/main.css" rel="stylesheet"/>
+
+		<!-- scripts -->
+		<script src="themes/js/jquery-1.7.2.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>				
+		<script src="themes/js/superfish.js"></script>	
+		<script src="themes/js/jquery.scrolltotop.js"></script>
+
+</head>
+<body>		
+    1
+<?php include_once("analyticstracking.php") ?>
+		<div id="top-bar" class="container">
+			<div class="row">
+				<div class="span4">
+					
+				</div>
+				<div class="span8">
+					<div class="account pull-right">
+						<ul class="user-menu">	
+<!--                                                        <li><a href="index.php">Home</a></li>-->
+<li><a href="buyerhome.php">Back</a></li>
+<!--							<li><a href="#">My Account</a></li>
+							<li><a href="cart.html">Your Cart</a></li>-->
+							
+												
+                                                         <li><a href="signout.php">Logout</a></li>
+                                                       
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="wrapper" class="container">
+			<section class="navbar main-menu">
+				<div class="navbar-inner main-menu">				
+					<a href="index.php" class="logo pull-left"><img src="themes/images//logo.png" class="site_logo" alt=""></a>
+					<nav id="menu" class="pull-right">
+  
+					</nav>
+				</div>
+			</section>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+			<section class="header_text sub">
+			<img class="pageBanner" src="themes/images/pageBanner.png" alt="New products" >
+                      
+				<h4><span></span></h4>
+			</section>
+        <section class="main-content">
+
+                <div class="row">
+                    <div class="span12">													
+                        <div class="row">
+                            <div class="span12">
+
+                                <div id="myCarousel" class="myCarousel carousel slide">
+                                    <div class="carousel-inner">
+                                        <form id="form1" name="form1" method="post" action="">
+                                            <br />
+                                            <br />
+                                        </form>
+                                        <div class="active item">
+                                            <center><h4 class="title"><span class="text"><strong>EDIT PROFILE</strong></span></h4></center>
+<!--                                            <ul class="thumbnails">	-->
+
+<?php
+include 'db.php';
+$us_id=$_SESSION['userid'];
+//$g=$_SESSION["logid"];
+//echo $g;
+$sql = mysqli_query($con,"SELECT * FROM customer,login where customer.userid=login.userid and customer.userid='$us_id'");
+$sq3l = mysqli_query($con,"SELECT * FROM login where `userid`='$us_id'");
+
+if(isset($_POST['update']))
+{
+
+//$user=$_POST["username"];
+$l=$_POST["userid"];
+$name=$_POST["name"];
+$email=$_POST["email"];
+$m=$_POST["lname"];
+$no=$_POST["no"];
+
+$us_id=$_SESSION['userid'];
+//$g=$_SESSION["logid"];
+$sql2="UPDATE `customer` SET `first_name`='$name',`last_name`='$m',`mobile_number`='$no',`email`='$email' WHERE `userid`=$us_id";
+$result2=mysqli_query($con,$sql2) or die("error");
+//$sql3="UPDATE `login` SET `username`='$user',`email`='$email' WHERE `userid`=$us_id";
+//$result3=mysqli_query($con,$sql3) or die("error");
+//echo "<script> alert('delete successfull');</script>";
+ echo"<script>alert('Profile Updated!');</script>";
+header("location:edit_buyer_profile.php");
+
+}
+?><form action="#" method="post">
+<center>
+<table  width="449"  border="0">
+
+
+<?php
+while($row=mysqli_fetch_array($sql)){
+	?>
+	<tr>
+		<tr><th>Name</th><td><input class="txxs" type="text" name="name" value="<?php echo $row['first_name'];?>"></td></tr>
+		<tr><th>Email</th><td><input class="txxs" type="text" name="email" value="<?php echo $row['email'];?>"></td></tr>
+<tr><th>Last Name</th><td><input class="txxs" type="text" name="lname" value="<?php echo $row['last_name'];?>"></td></tr>
+		<tr><th>Mobile</th><td><input class="txxs" type="text" name="no" value="<?php echo $row['mobile_number'];?>"></td></tr>
+				
+
+<!--<tr><th>User Name</th><td><input class="txxs" type="text" name="username" value="<?php echo $row['username'];?>"></td></tr>-->
+        <td><input class="txt" type="hidden" name="userid" value="<?php echo $row['userid'];?>"></td>
+		<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="submit" class="btn btn-inverse large" name="update" value="update"></td>
+	</tr>
+	<?php
+}
+?>
+
+</table>
+</center></form>
+
+ <section id="footer-bar">
+                <div class="row">
+                    <div class="span3">
+                        <h4>Navigation</h4>
+                        <ul class="nav">
+                             <!--                                                        <li><a href="index.php">Home</a></li>-->
+                            <li><a href="cart.php">My Cart</a></li>
+                            <!--							<li><a href="#">My Account</a></li>
+                                                                                    <li><a href="cart.html">Your Cart</a></li>-->
+
+                            <li><a href="changepwdcust.php">Change Password</a></li>
+
+                            <li><a href="edit_buyer_profile.php">Edit Profile</a></li>
+                            <li><a href="usvbook.php">Ordered Products</a></li>
+                            <li><a href="bkd_prd_cust.php">Booked Products</a></li>
+                           							
+                        </ul>					
+                    </div>
+                    <div class="span4">
+                        <h4>Navigation</h4>
+                        <ul class="nav">
+                          <li><a href="bought_products.php">Bought Products</a></li>
+                            <li><a href="cancelled_cust.php">Cancelled Products</a></li>
+                            <li><a href="maps_test1.html">Map</a></li>
+                            <!--<li><a href="other_products.php">Other Places</a></li>-->
+                            <li><a href="signout.php">Logout</a></li>
+                        </ul>
+                    </div>
+                    <div class="span5">
+                        <p class="logo"><img src="themes/images/logo.png" class="site_logo" alt=""></p>
+                        <p>You can get your products at lowest cost from your nearest store.</p>
+                        <br/>
+                        <span class="social_icons">
+                            <a class="facebook" href="#">Facebook</a>
+                            <a class="twitter" href="#">Twitter</a>
+                            <a class="skype" href="#">Skype</a>
+                            <a class="vimeo" href="#">Vimeo</a>
+                        </span>
+                    </div>					
+                </div>	
+            </section>
+            <section id="copyright">
+                <center><span>This Website belongs to Sruthi Dev Thomas</span></center>
+            </section>
+                                        </div>
+		<script src="themes/js/common.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('#checkout').click(function (e) {
+					document.location.href = "checkout.html";
+				})
+			});
+		</script></section>		
+    </body>
+</html>
